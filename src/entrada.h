@@ -4,9 +4,9 @@ struct Entrada{
 	char* informacion;
 };
 
-
+struct NodoEntrada;
 struct NodoEntrada{
-	Entrada* entrada;
-	NodoEntrada* siguiente;
-	NodoEntrada* anterior;
+	struct Entrada* entrada;
+	struct NodoEntrada* siguiente;
+	struct NodoEntrada* anterior;
 };

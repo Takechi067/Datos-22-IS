@@ -1,24 +1,23 @@
+#include "lista_doble.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "entrada.h"
-struct Lista{
-    struct NodoEntrada* inicio;
-};
 
-int crearEntrada(char* pCategoria, char* pNombre, char* pInfo){
+struct ListaDoble* nueva_lista_doble(){
+    struct ListaDoble* n_lista = calloc(1, sizeof(struct ListaDoble));
+    n_lista->inicio = calloc(1, sizeof(struct NodoEntrada));
+    return n_lista;
+}
+struct Entrada* nueva_entrada(char* pCategoria, char* pNombre, char* pInfo){
     struct Entrada* nEntrada = calloc(1, sizeof(struct Entrada));
 
     nEntrada -> categoria = pCategoria;
     nEntrada -> nombre = pNombre;
     nEntrada -> informacion = pInfo;
 
-    return 0;
+    return nEntrada;
 }
 
 
-int insertarFin(struct Lista* plista , struct Entrada* nEntrada){
+int insertar_final(struct ListaDoble* plista , struct Entrada* nEntrada){
     if(plista == NULL){
         return -1;
 
@@ -56,7 +55,7 @@ int insertarFin(struct Lista* plista , struct Entrada* nEntrada){
 
 }
 
-int imprimirLista(struct Lista* lista){
+int imprimir_lista_doble(struct ListaDoble* lista){
     if(lista == NULL){
         printf("Vacia");
         
@@ -67,36 +66,11 @@ int imprimirLista(struct Lista* lista){
         actual = lista -> inicio;
 
         while(actual != NULL){
-            printf("%s", actual -> entrada -> nombre);
+            // salto de linea
+            printf("%s\n", actual -> entrada -> nombre);
 
             actual = actual -> siguiente;
         }
     }
 }
 
-int main(){
-    crearEntrada("Entretenimiento solarpunk", "peliculas", "algunas peliculas solar punk son pokemon");
-
-
-    return 0;
-    
-}
-
-/*
-int main(){
-    char* Entretenmiento = calloc(80, sizeof(char));
-    strcpy(Entretenmiento, "Entretenimiento Solarpunk");
-
-    char* peliculas = calloc(80, sizeof(char));
-    strcpy(peliculas, "peliculas");
-
-    char* info = calloc(80, sizeof(char));
-    strcpy(info, "estudio ghibli ");
-
-    struct Entrada* entrada1 = calloc(1, sizeof(struct Entrada));
-
-    entrada1 -> nombre = Entretenmiento;
-    entrada1 -> categoria = peliculas;
-    entrada1 -> informacion = info;
-    return 0;
-}*/
