@@ -1,5 +1,13 @@
 #include "lista_doble.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "entrada.h"
+#include <string.h>
 
+struct ListaDoble{
+    struct NodoEntrada* inicio;
+};
 
 struct ListaDoble* nueva_lista_doble(){
     struct ListaDoble* n_lista = calloc(1, sizeof(struct ListaDoble));
@@ -15,7 +23,6 @@ struct Entrada* nueva_entrada(char* pCategoria, char* pNombre, char* pInfo){
 
     return nEntrada;
 }
-
 
 int insertar_final(struct ListaDoble* plista , struct Entrada* pEntrada){
     if(plista == NULL){
@@ -88,6 +95,31 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         }
 
     }
+}
+
+int eliminar(struct ListaDoble* pLista, struct Entrada* pEntrada){
+    if(plista == NULL){
+        return -1;
+    }
+    if(plista -> inicio == NULL){
+        return -1;
+    }
+    else{
+        struct NodoEntrada* actual = pLista-> inicio;
+
+        while(actual != NULL){
+            if(actual -> siguiente -> entrada == pEntrada){
+                struct NodoEntrada* temp = actual ->siguiente;
+
+                actual -> siguiente = temp -> siguiente;
+                temp ->siguiente->anterior = actual;
+
+                return 0;
+            }
+        }
+
+    }
+
 }
 
 int imprimir_lista_doble(struct ListaDoble* lista){

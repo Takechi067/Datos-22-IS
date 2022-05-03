@@ -18,7 +18,7 @@ struct ListaDoble* nueva_lista_doble();
 struct Entrada* nueva_entrada(char* pCategoria, char* pNombre, char* pInfo);
 int insertar_final(struct ListaDoble* plista , struct Entrada* pEntrada);
 int imprimir_lista_doble(struct ListaDoble* lista);
-
 int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada);
+int eliminar(struct ListaDoble* plista, struct Entrada* pEntrada);
 
 #endif
