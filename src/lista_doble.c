@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "entrada.h"
 #include <string.h>
 
 struct ListaDoble* nueva_lista_doble(struct NodoEntrada* pInicio){
@@ -105,7 +104,7 @@ int eliminar(struct ListaDoble* pLista, char* pEntrada){
         struct NodoEntrada* actual = pLista-> inicio;
 
         while(actual != NULL){
-            if(actual -> entrada ->categoria == pEntrada){
+            if(strcmp(actual -> entrada ->categoria, pEntrada) == 0){
                 struct NodoEntrada* anterior = actual -> anterior;
                 struct NodoEntrada* siguiente = actual -> siguiente;
                 anterior ->siguiente = siguiente;
