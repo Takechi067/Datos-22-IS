@@ -1,5 +1,6 @@
 #ifndef hash_h
 #define hash_h
+
 #include "librerias.h"
 #include "categoria.h"
 struct HashMap{
@@ -10,5 +11,6 @@ struct HashMap{
 struct HashMap* nuevo_hashmap(int);
 int obtener_hash(char*, int);
 int obtener_hash_categoria(struct Categoria*);
-int agregar_categoria(struct HashMap*, struct Categoria*);
+int insertar_categoria_hash(struct HashMap*, struct Categoria*);
+struct Categoria* buscar_categoria_nombre(struct HashMap*, char*);
 #endif

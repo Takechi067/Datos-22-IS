@@ -21,7 +21,8 @@ int insertar_final(struct ListaDoble* plista , struct Entrada* nEntrada){
     if(plista == NULL){
         return -1;
 
-    }if(plista -> inicio == NULL){
+    }
+    if(plista -> inicio == NULL){
         struct NodoEntrada* nNodo = calloc(1, sizeof(struct NodoEntrada));
 
         nNodo -> entrada = nEntrada;

@@ -6,10 +6,15 @@ struct HashMap*nuevo_hashmap(int maximo_elementos){
     // Aloja la memoria para los punteros de Categoria en cada posicion del arreglo
     n_hash->arreglo_categorias = calloc(maximo_elementos, sizeof(struct Categoria*));
 
+
+    // No inicializa los elementos. Los deja en NULL.
+
     // Aloja la memoria para las Categoria en cada indice.
+    /*
     for(int i =0; i <maximo_elementos; i++){
         n_hash->arreglo_categorias[i]=calloc(1,sizeof(struct Categoria));
     }
+    */
     return n_hash;
 }
 int obtener_hash (char* string, int largo){
@@ -39,21 +44,70 @@ int obtener_hash_categoria(struct Categoria* categoria){
 
     return indice;
 }
-int agregar_categoria(struct HashMap* hash, struct Categoria* nueva_categoria){
+int insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_categoria){
     // Agrega la categoria la posicion que le corresponda segun la funcion
     // de hash.
 
     // valida que no sean nulos
+    int insertado = 0;
     if(hash!=NULL & nueva_categoria!=NULL){
-
-    int indice = obtener_hash_categoria(nueva_categoria)%hash->maximo;
-    hash->arreglo_categorias[indice] = nueva_categoria;
-    hash->cantidad_elementos++;
-
-    return 0;
+        
+        int indice = obtener_hash_categoria(nueva_categoria)%hash->maximo;
+        // Si el indice ya contiene un elemento, insertelo en el siguiente que esté vacío
+        if(hash->arreglo_categorias[indice] == NULL){
+            hash->arreglo_categorias[indice]=nueva_categoria;
+            hash->cantidad_elementos++;
+            insertado = 1;
+        }
+        // Ya existe un elemento. Colisión.
+        else{
+            
+            while(indice < hash->maximo && !insertado){
+                if(hash->arreglo_categorias[indice] == NULL){
+                    hash->arreglo_categorias[indice]=nueva_categoria;
+                    insertado = 1;
+                    hash->cantidad_elementos++;
+                }
+                indice++;
+            }
+            if(!insertado){
+            // redimensionar(struct HashMap* hash);
+            // insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_categoria);
+            }
+        }
+        return 0;
     }
-    else{
-        // error
+    // cuando insertado sea 0, la condicion es verdadera
+    // no fue insertado por un error
+    if(!insertado){
         return -1;
     }
+
+}
+
+struct Categoria* buscar_categoria_nombre(struct HashMap* hash, char* nombre_categoria){
+    int largo = strlen(nombre_categoria);
+    int indice = obtener_hash(nombre_categoria, largo);
+    int encontrado = 0;
+    struct Categoria* categoria_buscada = NULL;
+
+    // Se sabe que hay algo pero no qué
+    if(hash->arreglo_categorias[indice]!=NULL){
+        // comparar strings
+        if(strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
+            categoria_buscada = hash->arreglo_categorias[indice];
+        }
+
+        else{
+            indice++; // Paso a comparar el que sigue
+            while(indice < hash->maximo && hash->arreglo_categorias[indice]!=NULL &&!encontrado ){
+                if(strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
+                    encontrado = 1;
+                    categoria_buscada = hash->arreglo_categorias[indice];
+                }
+                indice++;
+            }
+        }
+    }
+    return categoria_buscada;
 }
