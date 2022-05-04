@@ -76,7 +76,7 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         
         // el primero
                     // el de la lista
-        if(strcmp(plista-> inicio -> entrada ->nombre, pEntrada->nombre) >= 0){
+        if(comparar_strings(plista-> inicio -> entrada ->nombre,  pEntrada->nombre) >= 0){
             // Se tiene que poner la nueva entrada en el inicio
             struct NodoEntrada* inicio_previo = plista->inicio;
             inicio_previo->anterior = nNodo;
@@ -86,24 +86,40 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         }
         struct NodoEntrada* actual = plista -> inicio;
         //Recorre la lista 
-        while(actual->siguiente != NULL){
+        int insertado = 0;
+        while(actual->siguiente != NULL && !insertado){
             
-            if(strcmp(actual -> entrada -> nombre, pEntrada->nombre ) >= 0){
-
+            if(comparar_strings(actual -> entrada -> nombre, pEntrada->nombre ) >= 0){
+                printf("Comparacion en while %s y %s\n",actual -> entrada -> nombre,pEntrada->nombre);
                 struct NodoEntrada* temporal =  actual -> anterior;
 
                 actual -> anterior = nNodo;
                 temporal -> siguiente = nNodo;
                 nNodo -> anterior = temporal;
                 nNodo -> siguiente = actual;
-
+                insertado=1;
             }
-
+            else{
             //Estando en la posicion actaual pasa a la siguiente posicion
             actual = actual -> siguiente;
+            }
         }
-        actual->siguiente = nNodo;
-        nNodo->anterior = actual;
+        // Caso ultimo elemento
+        if(actual->siguiente==NULL){
+            if(comparar_strings(actual -> entrada -> nombre, pEntrada->nombre ) >= 0){
+                    printf("Entre aqui con %s y %s\n",actual -> entrada -> nombre,pEntrada->nombre);
+                    struct NodoEntrada* temporal =  actual -> anterior;
+                    actual -> anterior = nNodo;
+                    temporal -> siguiente = nNodo;
+                    nNodo -> anterior = temporal;
+                    nNodo -> siguiente = actual;
+
+            }
+            else{
+            actual->siguiente = nNodo;
+            nNodo->anterior = actual;
+            }
+        }
         return 0;
     }
 }
@@ -118,7 +134,7 @@ struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
     else{
         struct NodoEntrada* eliminado;
         // el primero
-        if(strcmp(pLista-> inicio -> entrada ->nombre, nombre_entrada) == 0){
+        if(comparar_strings(pLista-> inicio -> entrada ->nombre, nombre_entrada) == 0){
             eliminado = pLista-> inicio;
             pLista-> inicio = eliminado->siguiente;
             eliminado->siguiente = NULL;
@@ -126,8 +142,9 @@ struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
         }
         struct NodoEntrada* actual = pLista-> inicio->siguiente;
         // Despues del primero
+        
         while(actual != NULL){
-            if(strcmp(actual -> entrada ->nombre, nombre_entrada) == 0){
+            if(comparar_strings(actual -> entrada ->nombre, nombre_entrada) == 0){
                 // Lo encontré
                 struct NodoEntrada* anterior = actual -> anterior;
                 struct NodoEntrada* siguiente = actual -> siguiente;
@@ -139,11 +156,13 @@ struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
                 eliminado=actual;
                 actual->anterior = NULL;
                 actual->siguiente = NULL;
-                return NULL;
+                return eliminado;
             }
+            else{
             actual = actual ->siguiente;
+            }
         }
-
+       // No encontrado 
     }
     return NULL;
 }
