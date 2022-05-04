@@ -44,6 +44,7 @@ int obtener_hash_categoria(struct Categoria* categoria){
 
     return indice;
 }
+
 int insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_categoria){
     // Agrega la categoria la posicion que le corresponda segun la funcion
     // de hash.
@@ -110,4 +111,36 @@ struct Categoria* buscar_categoria_nombre(struct HashMap* hash, char* nombre_cat
         }
     }
     return categoria_buscada;
+}
+int eliminar_categoria_hash(struct HashMap* hash, char* nombre){
+        struct Categoria* buscado = buscar_categoria_nombre(hash, nombre);
+        // Si es diferente de NULL, entra al if
+        if(buscado){
+            free(buscar_categoria_nombre(hash, nombre));
+            return 0;
+        }
+        return -1;
+}
+
+int redimensionar_hash(struct HashMap* hash_parametro, int nuevo_largo){
+    struct Categoria** nuevo_arreglo =  calloc(nuevo_largo, sizeof(struct Categoria*));
+    struct HashMap* hash_tmp = nuevo_hashmap(nuevo_largo);
+    free(hash_tmp->arreglo_categorias);
+    hash_tmp->arreglo_categorias = nuevo_arreglo;
+    for(int i = 0; i < hash_parametro->maximo; i++){
+        if(hash_parametro->arreglo_categorias[i]!=NULL){
+            insertar_categoria_hash(hash_tmp, hash_parametro->arreglo_categorias[i]);
+        }
+    }
+    hash_parametro = hash_tmp;
+    return 0;
+}
+
+int imprimir_hash(struct HashMap* hash){
+    printf("\n HashMap: \n");
+    for(int i = 0; i < hash->maximo; i++){
+        if(hash->arreglo_categorias[i]!=NULL){
+            printf("%d: %s \n",i,hash->arreglo_categorias[i]->nombre);
+        }
+    }
 }
