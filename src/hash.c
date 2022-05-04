@@ -87,39 +87,53 @@ int insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_catego
 }
 
 struct Categoria* buscar_categoria_nombre(struct HashMap* hash, char* nombre_categoria){
+    int indice_buscado = buscar_indice_nombre(hash, nombre_categoria);
+    if(indice_buscado!=-1){
+         return hash->arreglo_categorias[indice_buscado];
+    }
+    else{
+        return NULL;
+    }
+}
+int buscar_indice_nombre(struct HashMap* hash, char* nombre_categoria){
+    // Devuelve el indice con la ubicacion en el arreglo del hash de la categoria ingresada
+    // si no la encuentra devuelve -1
     int largo = strlen(nombre_categoria);
-    int indice = obtener_hash(nombre_categoria, largo);
+                 // obtener hash me devuelve un numero muy grande, tengo que recortarlo
+    int indice = obtener_hash(nombre_categoria, largo) % hash->maximo;
     int encontrado = 0;
-    struct Categoria* categoria_buscada = NULL;
 
     // Se sabe que hay algo pero no qué
     if(hash->arreglo_categorias[indice]!=NULL){
         // comparar strings
-        if(strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
-            categoria_buscada = hash->arreglo_categorias[indice];
+        // Si es 0 son iguales, asi que se niega para que entre en el if
+        if(!strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
+            return indice;
         }
-
+        // Algoritmo de colisiones, si ya esta encuentra el siguiente espacio vacio
         else{
             indice++; // Paso a comparar el que sigue
             while(indice < hash->maximo && hash->arreglo_categorias[indice]!=NULL &&!encontrado ){
-                if(strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
+                if(!strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
                     encontrado = 1;
-                    categoria_buscada = hash->arreglo_categorias[indice];
+
+                    return indice;
                 }
                 indice++;
             }
         }
     }
-    return categoria_buscada;
+    return -1;
 }
-int eliminar_categoria_hash(struct HashMap* hash, char* nombre){
-        struct Categoria* buscado = buscar_categoria_nombre(hash, nombre);
-        // Si es diferente de NULL, entra al if
-        if(buscado){
-            free(buscar_categoria_nombre(hash, nombre));
-            return 0;
+struct Categoria* eliminar_categoria_hash(struct HashMap* hash, char* nombre){
+        int indice_eliminado = buscar_indice_nombre(hash, nombre);
+        printf("El indice es: %d\n",indice_eliminado );
+        struct Categoria* eliminado = NULL;
+        if(indice_eliminado!=-1){
+            struct Categoria* eliminado = hash->arreglo_categorias[indice_eliminado];
+            hash->arreglo_categorias[indice_eliminado]=NULL;
         }
-        return -1;
+        return eliminado;
 }
 
 int redimensionar_hash(struct HashMap* hash_parametro, int nuevo_largo){
