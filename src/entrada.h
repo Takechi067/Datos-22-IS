@@ -1,5 +1,6 @@
 struct Entrada{
-	char* nombre;
-	char* informacion;
+	char* titulo;
+	char* enlace;
+	char* descripcion;
 };
 
