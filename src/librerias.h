@@ -3,6 +3,9 @@
 #include <stdio.h>  // fgets
 #include <stdlib.h> // calloc
 #include <string.h> // strlen
+#include <ctype.h> // tolower
 
+char* a_minuscula(char* str);
 
+int comparar_strings(char* c1, char* c2);
 #endif
