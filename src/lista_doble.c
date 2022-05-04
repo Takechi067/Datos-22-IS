@@ -1,18 +1,24 @@
 #include "lista_doble.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <string.h>
 
+struct ListaDoble* nueva_lista_doble(){
+    struct ListaDoble* n_lista = calloc(1, sizeof(struct ListaDoble));
+    return n_lista;
+}
+/*
 struct ListaDoble* nueva_lista_doble(struct NodoEntrada* pInicio){
     struct ListaDoble* n_lista = calloc(1, sizeof(struct ListaDoble));
     n_lista->inicio = pInicio;
     return n_lista;
 }
-struct Entrada* nueva_entrada(char* pCategoria, char* pNombre, char* pInfo){
+*/
+struct NodoEntrada* nuevo_nodo_entrada(){
+    struct NodoEntrada* nuevo = calloc(1, sizeof(struct NodoEntrada));
+    return nuevo;
+}
+struct Entrada* nueva_entrada(char* pNombre, char* pInfo){
     struct Entrada* nEntrada = calloc(1, sizeof(struct Entrada));
 
-    nEntrada -> categoria = pCategoria;
+    //nEntrada -> categoria = pCategoria;
     nEntrada -> nombre = pNombre;
     nEntrada -> informacion = pInfo;
 
@@ -55,27 +61,34 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
     if(plista == NULL){
         return -1;
     }
+    // Aloja memoria en un Nodo para la Entrada
+    struct NodoEntrada* nNodo = calloc(1, sizeof(struct NodoEntrada));
+    nNodo -> entrada = pEntrada;
 
     if(plista -> inicio == NULL){
-        struct NodoEntrada* nNodo = calloc(1, sizeof(struct NodoEntrada));
-        nNodo -> entrada = pEntrada;
+
         plista -> inicio = nNodo;
 
         return 0;
     }
 
     else{
-
+        
+        // el primero
+                    // el de la lista
+        if(strcmp(plista-> inicio -> entrada ->nombre, pEntrada->nombre) >= 0){
+            // Se tiene que poner la nueva entrada en el inicio
+            struct NodoEntrada* inicio_previo = plista->inicio;
+            inicio_previo->anterior = nNodo;
+            nNodo->siguiente = inicio_previo;
+            plista->inicio = nNodo;
+            return 0;
+        }
         struct NodoEntrada* actual = plista -> inicio;
         //Recorre la lista 
-        while(actual != NULL){
+        while(actual->siguiente != NULL){
             
-            pEntrada -> nombre;
-
-            if(strcmp(pEntrada -> nombre, actual -> entrada -> nombre) <= 0){
-
-                struct NodoEntrada* nNodo = calloc(1, sizeof(struct NodoEntrada));
-                nNodo -> entrada = pEntrada;
+            if(strcmp(actual -> entrada -> nombre, pEntrada->nombre ) >= 0){
 
                 struct NodoEntrada* temporal =  actual -> anterior;
 
@@ -89,70 +102,76 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
             //Estando en la posicion actaual pasa a la siguiente posicion
             actual = actual -> siguiente;
         }
+        actual->siguiente = nNodo;
+        nNodo->anterior = actual;
         return 0;
     }
 }
 
-int eliminar(struct ListaDoble* pLista, char* pEntrada){
+struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
     if(pLista == NULL){
-        return -1;
+        return NULL;
     }
     if(pLista -> inicio == NULL){
-        return -1;
+        return NULL;
     }
     else{
-        struct NodoEntrada* actual = pLista-> inicio;
-
+        struct NodoEntrada* eliminado;
+        // el primero
+        if(strcmp(pLista-> inicio -> entrada ->nombre, nombre_entrada) == 0){
+            eliminado = pLista-> inicio;
+            pLista-> inicio = eliminado->siguiente;
+            eliminado->siguiente = NULL;
+            return eliminado;
+        }
+        struct NodoEntrada* actual = pLista-> inicio->siguiente;
+        // Despues del primero
         while(actual != NULL){
-            if(strcmp(actual -> entrada ->categoria, pEntrada) == 0){
+            if(strcmp(actual -> entrada ->nombre, nombre_entrada) == 0){
+                // Lo encontré
                 struct NodoEntrada* anterior = actual -> anterior;
                 struct NodoEntrada* siguiente = actual -> siguiente;
                 anterior ->siguiente = siguiente;
-                siguiente ->anterior = anterior;
-                free(actual);
-                actual = NULL;
-                return 0;
+                // puede que el actual no tenga siguiente
+                if(siguiente!=NULL){
+                    siguiente ->anterior = anterior;
+                }
+                eliminado=actual;
+                actual->anterior = NULL;
+                actual->siguiente = NULL;
+                return NULL;
             }
             actual = actual ->siguiente;
         }
 
     }
-
+    return NULL;
 }
 
 int imprimir_lista_doble(struct ListaDoble* lista){
     if(lista == NULL){
-        printf("Vacia");
-        
+        printf("La lista esta vacia. \n");
         return -1;
 
-    }else{
-        struct NodoEntrada* actual = calloc(1, sizeof(struct NodoEntrada));
+    }
+    else{
+        struct NodoEntrada* actual; // no hace falta alojar memoria
         actual = lista -> inicio;
-
-        while(actual != NULL){
-            // salto de linea
-            printf("%s\n", actual -> entrada -> nombre);
-
-            actual = actual -> siguiente;
+        if(actual==NULL){
+            printf("La lista esta vacia. \n");
+            return 0;
         }
-        return 0;
+        else{
+            while(actual != NULL){
+                // salto de linea
+                printf("%s\n", actual -> entrada -> nombre);
+
+                actual = actual -> siguiente;
+            }
+            printf("***\n");
+
+            return 0;
+        }
     }
 }
 
-int main(){
-    struct NodoEntrada* entrada1 = calloc(1, sizeof(struct NodoEntrada));
-    entrada1 ->entrada = nueva_entrada("Entretenimiento solarpunk", "Peliculas", "peliculas como pokemon y series como arkane");
-
-    struct NodoEntrada* entrada2 = calloc(1, sizeof(struct NodoEntrada));
-    entrada2 ->entrada = nueva_entrada("soluciones desde el anarquismo solarpunk", "arquitectura solarpunk", "creacion de edificios de bajo impacto ambiental");
-
-    struct ListaDoble* lista1 = calloc(1, sizeof(struct ListaDoble));
-    insertar_final(lista1, nueva_entrada("soluciones desde el anarquismo solarpunk", "arquitectura solarpunk", "creacion de edificios de bajo impacto ambiental"));
-    insertar_final(lista1, nueva_entrada("estado de la emergencia", "desplazados climaticos", "psersonas que se ven obligadas a abandonar su hogar"));
-    insertar_final(lista1, nueva_entrada("entretenimiento", "Peliculas", "pokemon"));
-    eliminar(lista1, "entretenimiento");
-    imprimir_lista_doble(lista1);
-
-    return 0;
-}
