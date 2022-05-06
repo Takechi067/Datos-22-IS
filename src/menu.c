@@ -1,6 +1,12 @@
 #include "menu.h"
 int main_menu(){
     struct HashMap* hash_main = nuevo_hashmap(31);
+    
+    // Cuando se inserta devuelve 0.
+    insertar_categoria_hash(hash_main, nueva_categoria("Estado de la emergencia climatica"));
+    insertar_categoria_hash(hash_main, nueva_categoria("Soluciones desde el Anarquismo solarpunk"));
+    insertar_categoria_hash(hash_main, nueva_categoria("Entretenimiento solarpunk"));
+
     int continuar = 1;
 
     while(continuar){
