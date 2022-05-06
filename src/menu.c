@@ -9,5 +9,6 @@ int mostrar_opciones(){
     printf("%s\n","3. Busqueda por nombre");
     printf("%s\n","4. Agregar categoria");
     printf("%s\n","5. Agregar entrada");
+    printf("%s\n","6. Salir");
     printf("%s\n","**********************************");
 }
