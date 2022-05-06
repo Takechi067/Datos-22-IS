@@ -83,8 +83,8 @@ int insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_catego
                 indice++;
             }
             if(!insertado){
-            // redimensionar(struct HashMap* hash);
-            // insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_categoria);
+             redimensionar_hash(hash, hash->maximo*2);
+             return insertar_categoria_hash(hash, nueva_categoria);
             }
         }
         return 0;
