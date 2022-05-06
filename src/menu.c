@@ -12,11 +12,11 @@ int main_menu(){
     while(continuar){
             mostrar_opciones();
             printf("Elija una opcion (1-6): \n");
-            char mi_entrada[2];
+            char* mi_entrada = leer_consola(10);
             
-            fgets(mi_entrada,2,stdin);
+            //fgets(mi_entrada,2,stdin);
             //printf("Mi entrada es: %s", mi_entrada);
-            flush_buffer();           
+            //flush_buffer();           
             //getchar(); // Limpia la entrada estandar para evitar problemas
             int indice_opcion = atoi(mi_entrada);
             //printf("Mi entrada es: %d", indice_opcion);

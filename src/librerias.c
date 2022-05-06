@@ -57,13 +57,10 @@ int validar_largo_texto(char* string, int minimo, int maximo){
     }
 
 }
-
+/*
 char* leer_consola(int cantidad_caracteres){
     char mi_entrada[2048];
     // Recibe la entrada desde la consola
-
-
-
     fgets(mi_entrada,cantidad_caracteres,stdin);
     flush_buffer();  
 
@@ -74,6 +71,20 @@ char* leer_consola(int cantidad_caracteres){
     //printf("La entrada es: %s \n", entrada_string);
     eliminar_nueva_linea( entrada_string);
     //printf("La entrada es: %s \n", entrada_string);
+    return entrada_string;
+}
+*/
+char* leer_consola(int cantidad_caracteres){
+    int ch;
+    char str[200];
+    scanf("%[^\n]",str);
+
+    //printf("%s\n", str);
+    char* entrada_string = calloc(strlen(str)+1, sizeof(char)); 
+    strcpy(entrada_string, str);
+    eliminar_nueva_linea( entrada_string);
+    //printf("%s\n", entrada_string);
+    flush_buffer();
     return entrada_string;
 }
 int flush_buffer(){
