@@ -61,12 +61,20 @@ int validar_largo_texto(char* string, int minimo, int maximo){
 char* leer_consola(int cantidad_caracteres){
     char mi_entrada[2048];
     // Recibe la entrada desde la consola
+    
     fgets(mi_entrada,cantidad_caracteres,stdin);
-    fflush(stdin); // Limpia la entrada estandar para evitar problemas
+    flush_buffer();  
+    //getchar();// Limpia la entrada estandar para evitar problemas
     // se necesita asignar memoria porque mi_entrada es un buffer
     char* entrada_string = calloc(strlen(mi_entrada)+1, sizeof(char)); 
     strcpy(entrada_string, mi_entrada);
+    //printf("La entrada es: %s \n", entrada_string);
     eliminar_nueva_linea( entrada_string);
-    
+    //printf("La entrada es: %s \n", entrada_string);
     return entrada_string;
+}
+int flush_buffer(){
+    int c;
+    while((c = getchar()) != '\n' && c != EOF);
+    return 0;
 }

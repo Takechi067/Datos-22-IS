@@ -7,10 +7,13 @@ int main_menu(){
             mostrar_opciones();
             printf("Elija una opcion (1-6): \n");
             char mi_entrada[2];
+            
             fgets(mi_entrada,2,stdin);
-            fflush(stdin); // Limpia la entrada estandar para evitar problemas
+            //printf("Mi entrada es: %s", mi_entrada);
+            flush_buffer();           
+            //getchar(); // Limpia la entrada estandar para evitar problemas
             int indice_opcion = atoi(mi_entrada);
-
+            //printf("Mi entrada es: %d", indice_opcion);
             // Valida la opcion
             if(indice_opcion>0 && indice_opcion<7){
                 if(indice_opcion==1){
@@ -35,8 +38,7 @@ int main_menu(){
             else{
                 printf("Ingrese una opcion valida: \n");
             }
-
-
+            
 
     }
 }

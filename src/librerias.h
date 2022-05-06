@@ -13,4 +13,5 @@ int texto_salida(char*);
 int eliminar_nueva_linea(char * string);
 int validar_largo_texto(char*, int minimo, int maximo);
 char* leer_consola(int);
+int flush_buffer();
 #endif
