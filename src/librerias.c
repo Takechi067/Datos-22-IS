@@ -59,7 +59,7 @@ int validar_largo_texto(char* string, int minimo, int maximo){
 }
 
 char* leer_consola(int cantidad_caracteres){
-    char mi_entrada[2048];
+    //char mi_entrada[2048];
     // Recibe la entrada desde la consola
 
     char* mi_entrada = NULL;
