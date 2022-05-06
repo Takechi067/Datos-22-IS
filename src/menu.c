@@ -44,7 +44,7 @@ int main_menu(){
             else{
                 printf("Ingrese una opcion valida: \n");
             }
-            
+            free(mi_entrada);
 
     }
 }

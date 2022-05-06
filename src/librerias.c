@@ -76,10 +76,10 @@ char* leer_consola(int cantidad_caracteres){
 */
 char* leer_consola(int cantidad_caracteres){
     int ch;
-    char str[200];
+    char str[16384];
     scanf("%[^\n]",str);
 
-    //printf("%s\n", str);
+    //printf("Size of str: %d\n", strlen(str)+1);
     char* entrada_string = calloc(strlen(str)+1, sizeof(char)); 
     strcpy(entrada_string, str);
     eliminar_nueva_linea( entrada_string);
