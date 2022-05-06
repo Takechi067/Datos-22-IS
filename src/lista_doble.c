@@ -62,6 +62,9 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
     if(plista == NULL){
         return -1;
     }
+    if(pEntrada == NULL){
+        return -1;
+    } 
     // Aloja memoria en un Nodo para la Entrada
     struct NodoEntrada* nNodo = calloc(1, sizeof(struct NodoEntrada));
     nNodo -> entrada = pEntrada;
@@ -182,9 +185,10 @@ int imprimir_lista_doble(struct ListaDoble* lista){
             return 0;
         }
         else{
+            int indice = 1;
             while(actual != NULL){
                 // salto de linea
-                printf("%s\n", actual -> entrada -> titulo);
+                printf("%d- %s\n",indice, actual -> entrada -> titulo);
 
                 actual = actual -> siguiente;
             }

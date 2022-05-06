@@ -7,4 +7,5 @@ struct Categoria{
     struct ListaDoble* lista_entradas;
 };
 struct Categoria* nueva_categoria(char* nombre_categoria);
+int imprimir_categoria(struct Categoria*);
 #endif

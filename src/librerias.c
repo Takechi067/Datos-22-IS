@@ -1,12 +1,14 @@
 #include "librerias.h"
-char* a_minuscula(char* str){
+int a_minuscula(char* str){
     // Modifica un str para que este todo en mayuscula
     // Basado en: https://stackoverflow.com/a/2661788
     if(strlen(str)){
         for(int i = 0; i<strlen(str); i++){
             str[i] = tolower(str[i]);
         }
+        return 0;
     }
+    return 1;
 }
 
 int comparar_strings(char* c1, char* c2){
@@ -23,8 +25,10 @@ int comparar_strings(char* c1, char* c2){
     strcpy(minus_c2, c2);
     a_minuscula(minus_c2);
 
-
+    //printf("Comparando: %s con \n%s\n", minus_c1, minus_c2);
+    //printf("Comparando: %d con \n%d\n", strlen(minus_c1), strlen(minus_c2));
     int resultado_cmp = strcmp(minus_c1, minus_c2);
+    //printf("El resultado es: %d\n", resultado_cmp);
     free(minus_c1);
     free(minus_c2);
     return resultado_cmp;

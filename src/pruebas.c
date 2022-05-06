@@ -96,6 +96,14 @@ int pruebas_hash(){
     insertar_categoria_hash(mi_hash, mi_cat1);
     imprimir_categorias_hash(mi_hash);
 
+
+    struct Entrada* ent = nueva_entrada("Arboles","ref", "los juegos de Arboles son Arboles");
+    struct Categoria* cat = buscar_categoria_nombre(mi_hash,"hay QUE HACER PRUEBAS yeah");
+
+    obtener_hash_ajustado(mi_hash,"hay que HACER PRUEBAS yeah");
+    imprimir_categoria(cat);
+    struct ListaDoble * list = cat->lista_entradas;
+    insertar_ordenado(list,ent);
     opcion_mostrar_categorias(mi_hash);
 
 }

@@ -5,7 +5,7 @@
 #include <string.h> // strlen
 #include <ctype.h> // tolower
 
-char* a_minuscula(char* str);
+int a_minuscula(char* str);
 
 int comparar_strings(char* c1, char* c2);
 

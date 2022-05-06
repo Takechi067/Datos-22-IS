@@ -20,19 +20,20 @@ int opcion_mostrar_categorias(struct HashMap* hash_main){
 
     // Espera la entrada del usuario
     printf("Ingrese el numero de la categoria: \n");
-    char mi_entrada[512];
-    fgets(mi_entrada,512,stdin);
+    char mi_entrada[1024];
+    fgets(mi_entrada,1024,stdin);
     int indice_hash = atoi(mi_entrada);
-
+    printf("Asi se convirtio el indice: %d \n", indice_hash );
     // Hay que validar que sea un numero 
     //int largoT = strlen(miTexto);
     //int resultado = obtener_hash_ajustado(hash_main, miTexto, largoT);
     struct Categoria* buscado = buscar_hash_indice(hash_main, indice_hash);
+    printf("\n");
     if(buscado){
-        imprimir_lista_doble(buscado->lista_entradas);
+        imprimir_categoria(buscado);
     }
     else{
-        printf("Ingrese un numero valido: \n");
+        printf("Ingrese un numero valido. \n");
     }
     return 0;
 }

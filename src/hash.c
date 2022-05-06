@@ -20,6 +20,12 @@ struct HashMap*nuevo_hashmap(int maximo_elementos){
 int obtener_hash (char* string, int largo){
     // Devuelve un entero entre 0 y M - 1  
     // El algoritmo usado es el Polynomial Rolling Hash
+
+    // El hash para las mayusculas y minusculas es el mismo
+    char* minus_string = calloc(strlen(string)+1, sizeof(char));
+    strcpy(minus_string, string);
+    a_minuscula(minus_string);
+    //printf("Este el el texto a evaluar: %s\n", minus_string);
     int hash = 0;
     int p = 31; // Puede ser cualquier valor, 31 es recomendado
     long multiplicador = 1; // Si uso int podria hacer overflow
@@ -27,11 +33,12 @@ int obtener_hash (char* string, int largo){
 
     // Caracter por caracter hasta el final
     for(int i=0; i<largo; i++){
-        hash= hash+(string[i]*multiplicador); // Suma el acumulado con el char actual*multiplicador
+        hash= hash+(minus_string[i]*multiplicador); // Suma el acumulado con el char actual*multiplicador
         hash=hash%M; // Aplica la operacion de modulo con el M
         multiplicador=multiplicador * p; // Sube el grado del multiplicador
         multiplicador= multiplicador%M;    
     }
+    free(minus_string);
     return hash;
 }
 int obtener_hash_categoria(struct Categoria* categoria){
@@ -101,7 +108,7 @@ struct Categoria* buscar_categoria_nombre(struct HashMap* hash, char* nombre_cat
 }
 struct Categoria* buscar_hash_indice(struct HashMap* hash, int indice){
     
-    if(indice < hash->maximo-1 || indice<0){
+    if(indice>=0  &&  indice < hash->maximo){
         return hash->arreglo_categorias[indice];
     }
     else{
@@ -113,21 +120,24 @@ int buscar_indice_nombre(struct HashMap* hash, char* nombre_categoria){
     // si no la encuentra devuelve -1
     int largo = strlen(nombre_categoria);
                  // obtener hash me devuelve un numero muy grande, tengo que recortarlo
+
+    // El hash lo hay que buscar en minuscula siempre
+
     int indice = obtener_hash(nombre_categoria, largo) % hash->maximo;
     int encontrado = 0;
-
+    
     // Se sabe que hay algo pero no qué
     if(hash->arreglo_categorias[indice]!=NULL){
         // comparar strings
         // Si es 0 son iguales, asi que se niega para que entre en el if
-        if(!strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
+        if(!comparar_strings(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
             return indice;
         }
         // Algoritmo de colisiones, si ya esta encuentra el siguiente espacio vacio
         else{
             indice++; // Paso a comparar el que sigue
             while(indice < hash->maximo && hash->arreglo_categorias[indice]!=NULL &&!encontrado ){
-                if(!strcmp(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
+                if(!comparar_strings(hash->arreglo_categorias[indice]->nombre, nombre_categoria)){
                     encontrado = 1;
 
                     return indice;
@@ -140,7 +150,7 @@ int buscar_indice_nombre(struct HashMap* hash, char* nombre_categoria){
 }
 struct Categoria* eliminar_categoria_hash(struct HashMap* hash, char* nombre){
         int indice_eliminado = buscar_indice_nombre(hash, nombre);
-        printf("El indice es: %d\n",indice_eliminado );
+        //printf("El indice es: %d\n",indice_eliminado );
         struct Categoria* eliminado = NULL;
         if(indice_eliminado!=-1){
             struct Categoria* eliminado = hash->arreglo_categorias[indice_eliminado];
