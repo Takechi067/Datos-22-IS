@@ -3,8 +3,8 @@
 #include "pruebas.h"
 #include "menu.h"
 int main(){
-    mostrar_opciones();
+    //mostrar_opciones();
     //pruebas_listas();
-    //pruebas_hash();
+    pruebas_hash();
     return 0;
 }

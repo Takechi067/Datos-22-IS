@@ -62,11 +62,11 @@ int pruebas_hash(){
 
     struct Categoria* mi_cat2 = nueva_categoria("Estado");
     insertar_categoria_hash(mi_hash, mi_cat2);
-    imprimir_hash(mi_hash);
+    imprimir_categorias_hash(mi_hash);
 
     struct Categoria* mi_cat3 = nueva_categoria("Linux es mejor para esto");
     insertar_categoria_hash(mi_hash, mi_cat3);
-    imprimir_hash(mi_hash);
+    imprimir_categorias_hash(mi_hash);
 
     struct Categoria* buscado = buscar_categoria_nombre(mi_hash,"Linux es mejor para esto");
     
@@ -76,14 +76,26 @@ int pruebas_hash(){
     else{
         printf("%s\n","No lo encontre\0");
     }
+
+    /*
     eliminar_categoria_hash(mi_hash,"Linux es mejor para esto");
-    imprimir_hash(mi_hash);
+    imprimir_categorias_hash(mi_hash);
     eliminar_categoria_hash(mi_hash,"Estado");
-    imprimir_hash(mi_hash);
+    imprimir_categorias_hash(mi_hash);
     eliminar_categoria_hash(mi_hash,"Entrenimiento");
-    imprimir_hash(mi_hash);
-    free(mi_cat1);
-    mi_cat1 = nueva_categoria("Profe por favor denos tiempo hasta el viernes");
+    imprimir_categorias_hash(mi_hash);
+    */
+
+    //free(mi_cat1);
+    //mi_cat1 = nueva_categoria("Profe por favor denos tiempo hasta el viernes");
+    mi_cat1 = nueva_categoria("Esto funciona?");
     insertar_categoria_hash(mi_hash, mi_cat1);
-    imprimir_hash(mi_hash);
+    imprimir_categorias_hash(mi_hash);
+
+    mi_cat1 = nueva_categoria("HAY QUE HACER PRUEBAS YEAH");
+    insertar_categoria_hash(mi_hash, mi_cat1);
+    imprimir_categorias_hash(mi_hash);
+
+    opcion_mostrar_categorias(mi_hash);
+
 }

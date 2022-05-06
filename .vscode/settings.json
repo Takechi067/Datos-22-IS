@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "lista_doble.h": "c",
-        "librerias.h": "c"
+        "librerias.h": "c",
+        "string.h": "c",
+        "ctype.h": "c"
     }
 }
