@@ -176,12 +176,23 @@ int redimensionar_hash(struct HashMap* hash_parametro, int nuevo_largo){
 int imprimir_categorias_hash(struct HashMap* hash){
     // Imprime los titulos de las categorias no nulas
     // del hash. 
+    // Devuelve 0 si no tiene elementos, 1 si tiene, -1 si es nulo
     if(hash!=NULL){
+        if(hash->cantidad_elementos<1){
+            printf("\n No se han agredado categorias. \n");
+            return 0;
+        }
+        else{
         printf("\n Categorias: \n");
         for(int i = 0; i < hash->maximo; i++){
             if(hash->arreglo_categorias[i]!=NULL){
                 printf("%d: %s \n",i,hash->arreglo_categorias[i]->nombre);
             }
         }
+        return 1;
+        }
+    }
+    else{
+    return -1;
     }
 }

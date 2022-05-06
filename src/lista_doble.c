@@ -127,7 +127,25 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         return 0;
     }
 }
+struct NodoEntrada* buscar_entrada(struct ListaDoble* pLista, char* pEntrada){
+    if(pLista == NULL){
+        return NULL;
+    }
+    if(pLista -> inicio == NULL){
+        return NULL;
+    }
+    else{
+        struct NodoEntrada* actual = pLista-> inicio;
+        while(actual!=NULL){
+            if(comparar_strings(actual -> entrada ->titulo, pEntrada) == 0){
+                return actual;
+            }
+            actual= actual->siguiente;
+        }
+    }
+    return NULL;
 
+}
 struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* titulo_entrada){
     if(pLista == NULL){
         return NULL;
@@ -191,11 +209,23 @@ int imprimir_lista_doble(struct ListaDoble* lista){
                 printf("%d- %s\n",indice, actual -> entrada -> titulo);
 
                 actual = actual -> siguiente;
+                indice++;
             }
             printf("***\n");
 
             return 0;
         }
+    }
+}
+
+int imprimir_entrada(struct Entrada* entrada){
+    if(entrada){
+    printf("Titulo: %s\n", entrada->titulo);
+    printf("Referencia: %s\n", entrada->referencia);
+    printf("Descripcion: %s\n\n", entrada->descripcion);
+    }
+    else{
+        printf("Entrada nula\n");
     }
 }
 

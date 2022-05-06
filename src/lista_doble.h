@@ -21,5 +21,6 @@ int insertar_final(struct ListaDoble* plista , struct Entrada* pEntrada);
 int imprimir_lista_doble(struct ListaDoble* lista);
 int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada);
 struct NodoEntrada* eliminar(struct ListaDoble* plista, char* pEntrada);
-
+struct NodoEntrada* buscar_entrada(struct ListaDoble* pLista, char* pEntrada);
+int imprimir_entrada(struct Entrada*);
 #endif

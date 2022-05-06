@@ -5,6 +5,7 @@
 int main(){
     //mostrar_opciones();
     //pruebas_listas();
-    pruebas_hash();
+    main_menu();
+    //pruebas_hash();
     return 0;
 }

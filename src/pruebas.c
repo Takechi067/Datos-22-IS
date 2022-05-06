@@ -104,6 +104,7 @@ int pruebas_hash(){
     imprimir_categoria(cat);
     struct ListaDoble * list = cat->lista_entradas;
     insertar_ordenado(list,ent);
+    opcion_agregar_categoria(mi_hash);
     opcion_mostrar_categorias(mi_hash);
 
 }

@@ -33,3 +33,40 @@ int comparar_strings(char* c1, char* c2){
     free(minus_c2);
     return resultado_cmp;
 }
+int eliminar_nueva_linea(char * string){
+    // Tomado de: https://stackoverflow.com/a/17386177
+    
+    int nueva_linea = strlen(string)-1;
+    if(nueva_linea>0){                       
+        if (string[nueva_linea] == '\n')
+            string[nueva_linea] = '\0';
+    }
+}
+
+int validar_largo_texto(char* string, int minimo, int maximo){
+    // Valida si el largo de un texto esta entre el minimo y el
+    // maximo, ambos inclusivos.
+
+    // Devuelve 1 si es valido, 0 sino.
+    int largo = strlen(string);
+    if(largo<minimo || largo>maximo){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+
+}
+
+char* leer_consola(int cantidad_caracteres){
+    char mi_entrada[2048];
+    // Recibe la entrada desde la consola
+    fgets(mi_entrada,cantidad_caracteres,stdin);
+    fflush(stdin); // Limpia la entrada estandar para evitar problemas
+    // se necesita asignar memoria porque mi_entrada es un buffer
+    char* entrada_string = calloc(strlen(mi_entrada)+1, sizeof(char)); 
+    strcpy(entrada_string, mi_entrada);
+    eliminar_nueva_linea( entrada_string);
+    
+    return entrada_string;
+}
