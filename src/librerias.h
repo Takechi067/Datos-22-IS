@@ -8,4 +8,6 @@
 char* a_minuscula(char* str);
 
 int comparar_strings(char* c1, char* c2);
+
+int texto_salida(char*);
 #endif

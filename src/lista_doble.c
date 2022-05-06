@@ -15,14 +15,15 @@ struct NodoEntrada* nuevo_nodo_entrada(){
     struct NodoEntrada* nuevo = calloc(1, sizeof(struct NodoEntrada));
     return nuevo;
 }
-struct Entrada* nueva_entrada(char* pNombre, char* pInfo){
-    struct Entrada* nEntrada = calloc(1, sizeof(struct Entrada));
+struct Entrada* nueva_entrada(char* titulo, char* referencia, char* descripcion){
+    struct Entrada* n_entrada = calloc(1, sizeof(struct Entrada));
 
     //nEntrada -> categoria = pCategoria;
-    nEntrada -> nombre = pNombre;
-    nEntrada -> informacion = pInfo;
+    n_entrada -> titulo = titulo;
+    n_entrada -> referencia = referencia;
+    n_entrada -> descripcion = descripcion; 
 
-    return nEntrada;
+    return n_entrada;
 }
 
 int insertar_final(struct ListaDoble* plista , struct Entrada* pEntrada){
@@ -76,7 +77,7 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         
         // el primero
                     // el de la lista
-        if(comparar_strings(plista-> inicio -> entrada ->nombre,  pEntrada->nombre) >= 0){
+        if(comparar_strings(plista-> inicio -> entrada ->titulo,  pEntrada->titulo) >= 0){
             // Se tiene que poner la nueva entrada en el inicio
             struct NodoEntrada* inicio_previo = plista->inicio;
             inicio_previo->anterior = nNodo;
@@ -89,8 +90,8 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         int insertado = 0;
         while(actual->siguiente != NULL && !insertado){
             
-            if(comparar_strings(actual -> entrada -> nombre, pEntrada->nombre ) >= 0){
-                printf("Comparacion en while %s y %s\n",actual -> entrada -> nombre,pEntrada->nombre);
+            if(comparar_strings(actual -> entrada -> titulo, pEntrada->titulo ) >= 0){
+                printf("Comparacion en while %s y %s\n",actual -> entrada -> titulo,pEntrada->titulo);
                 struct NodoEntrada* temporal =  actual -> anterior;
 
                 actual -> anterior = nNodo;
@@ -106,8 +107,8 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         }
         // Caso ultimo elemento
         if(actual->siguiente==NULL){
-            if(comparar_strings(actual -> entrada -> nombre, pEntrada->nombre ) >= 0){
-                    printf("Entre aqui con %s y %s\n",actual -> entrada -> nombre,pEntrada->nombre);
+            if(comparar_strings(actual -> entrada -> titulo, pEntrada->titulo ) >= 0){
+                    printf("Entre aqui con %s y %s\n",actual -> entrada -> titulo,pEntrada->titulo);
                     struct NodoEntrada* temporal =  actual -> anterior;
                     actual -> anterior = nNodo;
                     temporal -> siguiente = nNodo;
@@ -124,7 +125,7 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
     }
 }
 
-struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
+struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* titulo_entrada){
     if(pLista == NULL){
         return NULL;
     }
@@ -134,7 +135,7 @@ struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
     else{
         struct NodoEntrada* eliminado;
         // el primero
-        if(comparar_strings(pLista-> inicio -> entrada ->nombre, nombre_entrada) == 0){
+        if(comparar_strings(pLista-> inicio -> entrada ->titulo, titulo_entrada) == 0){
             eliminado = pLista-> inicio;
             pLista-> inicio = eliminado->siguiente;
             eliminado->siguiente = NULL;
@@ -144,7 +145,7 @@ struct NodoEntrada* eliminar(struct ListaDoble* pLista, char* nombre_entrada){
         // Despues del primero
         
         while(actual != NULL){
-            if(comparar_strings(actual -> entrada ->nombre, nombre_entrada) == 0){
+            if(comparar_strings(actual -> entrada ->titulo, titulo_entrada) == 0){
                 // Lo encontré
                 struct NodoEntrada* anterior = actual -> anterior;
                 struct NodoEntrada* siguiente = actual -> siguiente;
@@ -183,7 +184,7 @@ int imprimir_lista_doble(struct ListaDoble* lista){
         else{
             while(actual != NULL){
                 // salto de linea
-                printf("%s\n", actual -> entrada -> nombre);
+                printf("%s\n", actual -> entrada -> titulo);
 
                 actual = actual -> siguiente;
             }

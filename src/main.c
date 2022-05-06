@@ -1,8 +1,10 @@
 #include "hash.h"
 #include "lista_doble.h"
 #include "pruebas.h"
+#include "menu.h"
 int main(){
+    mostrar_opciones();
     //pruebas_listas();
-    pruebas_hash();
+    //pruebas_hash();
     return 0;
 }

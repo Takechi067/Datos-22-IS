@@ -5,10 +5,10 @@ int pruebas_listas(){
     struct NodoEntrada* mi_nodo_entrada ; //calloc(1, sizeof(struct NodoEntrada));
     // nueva_entrada hace el calloc
     mi_nodo_entrada = nuevo_nodo_entrada();
-    mi_nodo_entrada ->entrada = nueva_entrada("ARCANE", "la serie muestra elementos de solarpunk");
+    mi_nodo_entrada ->entrada = nueva_entrada("ARCANE","ref", "la serie muestra elementos de solarpunk");
 
     struct NodoEntrada* mi_nodo_entrada2  = nuevo_nodo_entrada();;// = calloc(1, sizeof(struct NodoEntrada));
-    mi_nodo_entrada2 ->entrada = nueva_entrada("arquitectura solarpunk", "creacion de edificios de bajo impacto ambiental");
+    mi_nodo_entrada2 ->entrada = nueva_entrada("arquitectura solarpunk","ref", "creacion de edificios de bajo impacto ambiental");
     printf("llego hasta aqui \n");
     struct ListaDoble* lista1;// = calloc(1, sizeof(struct ListaDoble));
     lista1= nueva_lista_doble();
@@ -18,7 +18,7 @@ int pruebas_listas(){
     imprimir_lista_doble(lista1);
     printf("2\n");
     insertar_final(lista1, mi_nodo_entrada2 ->entrada);
-    insertar_final(lista1, nueva_entrada("POKEMON", "los juegos de pokemon son solarpunk"));
+    insertar_final(lista1, nueva_entrada("POKEMON","ref", "los juegos de pokemon son solarpunk"));
     imprimir_lista_doble(lista1);
     printf("ANTES DE ELIMINAR\n");
 
@@ -31,15 +31,15 @@ int pruebas_listas(){
     eliminar(lista1, "arquitectura solarpunk");
     imprimir_lista_doble(lista1);
 
-    insertar_ordenado(lista1, nueva_entrada("Arboles", "los juegos de Arboles son Arboles"));
+    insertar_ordenado(lista1, nueva_entrada("Arboles","ref", "los juegos de Arboles son Arboles"));
     imprimir_lista_doble(lista1);
-    insertar_ordenado(lista1, nueva_entrada("Aazucaaa", "las peliculas de Aazucaaa son Aazucaaa"));
+    insertar_ordenado(lista1, nueva_entrada("Aazucaaa","ref", "las peliculas de Aazucaaa son Aazucaaa"));
     imprimir_lista_doble(lista1);
-    insertar_ordenado(lista1, nueva_entrada("ZEBRAS", "los ZEBRAS de ZEBRAS son ZEBRAS"));
+    insertar_ordenado(lista1, nueva_entrada("ZEBRAS","ref", "los ZEBRAS de ZEBRAS son ZEBRAS"));
     imprimir_lista_doble(lista1);
-    insertar_ordenado(lista1, nueva_entrada("Zamba", "los Zamba de Zamba son Zamba"));
+    insertar_ordenado(lista1, nueva_entrada("Zamba","ref", "los Zamba de Zamba son Zamba"));
     imprimir_lista_doble(lista1);
-    insertar_ordenado(lista1, nueva_entrada("Zaaa", "los Zaaa de Zaaa son Zaaa"));
+    insertar_ordenado(lista1, nueva_entrada("Zaaa","ref", "los Zaaa de Zaaa son Zaaa"));
     imprimir_lista_doble(lista1);
 
     

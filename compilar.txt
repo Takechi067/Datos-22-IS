@@ -1,1 +1,1 @@
- gcc -g --std=c11 -o proyecto.exe main.c lista_doble.c hash.c categoria.c librerias.c pruebas.c
+gcc -g --std=c11 -o proyecto.exe main.c lista_doble.c hash.c categoria.c librerias.c pruebas.c menu.c

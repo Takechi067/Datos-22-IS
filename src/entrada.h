@@ -1,6 +1,6 @@
 struct Entrada{
 	char* titulo;
-	char* enlace;
+	char* referencia;
 	char* descripcion;
 };
 
