@@ -75,11 +75,10 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
 
         return 0;
     }
-
     else{
         
         // el primero
-                    // el de la lista
+        // de la lista
         if(comparar_strings(plista-> inicio -> entrada ->titulo,  pEntrada->titulo) >= 0){
             // Se tiene que poner la nueva entrada en el inicio
             struct NodoEntrada* inicio_previo = plista->inicio;
@@ -93,6 +92,7 @@ int insertar_ordenado(struct ListaDoble* plista, struct Entrada* pEntrada){
         int insertado = 0;
         while(actual->siguiente != NULL && !insertado){
             
+            // hasta que entrada quede antes del actual
             if(comparar_strings(actual -> entrada -> titulo, pEntrada->titulo ) >= 0){
                 printf("Comparacion en while %s y %s\n",actual -> entrada -> titulo,pEntrada->titulo);
                 struct NodoEntrada* temporal =  actual -> anterior;

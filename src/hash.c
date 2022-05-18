@@ -9,12 +9,7 @@ struct HashMap*nuevo_hashmap(int maximo_elementos){
 
     // No inicializa los elementos. Los deja en NULL.
 
-    // Aloja la memoria para las Categoria en cada indice.
-    /*
-    for(int i =0; i <maximo_elementos; i++){
-        n_hash->arreglo_categorias[i]=calloc(1,sizeof(struct Categoria));
-    }
-    */
+
     return n_hash;
 }
 int obtener_hash (char* string, int largo){
@@ -99,6 +94,7 @@ int insertar_categoria_hash(struct HashMap* hash, struct Categoria* nueva_catego
 
 struct Categoria* buscar_categoria_nombre(struct HashMap* hash, char* nombre_categoria){
     int indice_buscado = buscar_indice_nombre(hash, nombre_categoria);
+    // si lo encontró, devuelva el elemento en esa posicion
     if(indice_buscado!=-1){
          return hash->arreglo_categorias[indice_buscado];
     }

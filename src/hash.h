@@ -4,9 +4,9 @@
 #include "librerias.h"
 #include "categoria.h"
 struct HashMap{
-    int maximo;
-    int cantidad_elementos;
-    struct Categoria** arreglo_categorias;
+    int maximo; // largo del arreglo
+    int cantidad_elementos; // elementos ingresados en el arreglo
+    struct Categoria** arreglo_categorias; // 
 };
 struct HashMap* nuevo_hashmap(int);
 int obtener_hash(char*, int);
